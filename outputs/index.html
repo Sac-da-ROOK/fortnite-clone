@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dropzone Blitz: 2D Battle Royale</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Dropzone Blitz">
+          <span class="brand-mark">DZ</span>
+          <span>Dropzone Blitz</span>
+        </a>
+        <div class="wallet">
+          <span id="currencyText">0 coins</span>
+          <span id="skinText">Shadow Ace</span>
+        </div>
+        <div class="status-strip" aria-label="Match status">
+          <span id="aliveCount">Alive 21</span>
+          <span id="stormStatus">Storm 2:00</span>
+          <span id="weaponStatus">Pulse Pistol</span>
+        </div>
+        <button class="secondary-button shop-button" id="shopButton" type="button">Shop</button>
+      </header>
+
+      <section class="playfield" aria-label="Playable 2D battle royale">
+        <canvas id="gameCanvas" width="1280" height="720" aria-label="Dropzone Blitz game canvas"></canvas>
+
+        <div class="hud top-left">
+          <div class="bars">
+            <label>Health <span id="healthText">100</span></label>
+            <div class="bar"><span id="healthBar"></span></div>
+            <label>Shield <span id="shieldText">50</span></label>
+            <div class="bar shield"><span id="shieldBar"></span></div>
+          </div>
+        </div>
+
+        <div class="hud top-right">
+          <canvas id="miniMap" width="156" height="108" aria-label="Mini map"></canvas>
+          <div class="inventory">
+            <span id="ammoText">Ammo 48</span>
+            <span id="matsText">Build 80</span>
+            <span id="elimText">Elims 0</span>
+          </div>
+        </div>
+
+        <div class="hud bottom-center">
+          <div class="controls">
+            <span>WASD / Arrows</span>
+            <span>Mouse</span>
+            <span>Click Shoot</span>
+            <span>Q Build</span>
+            <span>E Pickup</span>
+          </div>
+        </div>
+
+        <div class="mobile-controls" aria-label="Touch controls">
+          <div class="move-pad">
+            <button data-move="up" aria-label="Move up">Up</button>
+            <button data-move="left" aria-label="Move left">Left</button>
+            <button data-move="down" aria-label="Move down">Down</button>
+            <button data-move="right" aria-label="Move right">Right</button>
+          </div>
+          <div class="action-pad">
+            <button id="touchBuild" aria-label="Build wall">Build</button>
+            <button id="touchPickup" aria-label="Pick up loot">Loot</button>
+            <button id="touchShoot" aria-label="Shoot weapon">Fire</button>
+          </div>
+        </div>
+
+        <div class="screen-panel home-panel" id="startPanel">
+          <p class="kicker">Season 07 // Home Base</p>
+          <h1>Choose Your Drop</h1>
+          <p>Set your party, outfit, landing zone, and match pace before the island opens.</p>
+
+          <div class="home-options" aria-label="Match customization">
+            <fieldset>
+              <legend>Party</legend>
+              <div class="option-grid mode-grid">
+                <button class="option-card active" data-mode="solo" type="button">
+                  <span>Solo</span>
+                  <strong>Lone drop</strong>
+                </button>
+                <button class="option-card" data-mode="duo" type="button">
+                  <span>Duo</span>
+                  <strong>1 teammate</strong>
+                </button>
+                <button class="option-card" data-mode="trio" type="button">
+                  <span>Trio</span>
+                  <strong>2 teammates</strong>
+                </button>
+                <button class="option-card" data-mode="squad" type="button">
+                  <span>Squad</span>
+                  <strong>3 teammates</strong>
+                </button>
+              </div>
+            </fieldset>
+
+            <div class="custom-grid">
+              <label>
+                Outfit
+                <select id="outfitSelect">
+                  <option value="#111827">Shadow Ace</option>
+                  <option value="#ff477e">Neon Rush</option>
+                  <option value="#22d3ee">Rift Runner</option>
+                  <option value="#ffd166">Solar Scout</option>
+                </select>
+              </label>
+              <label>
+                Drop Zone
+                <select id="dropSelect">
+                  <option value="center">Central City</option>
+                  <option value="west">Sandy Station</option>
+                  <option value="north">Rift Ridge</option>
+                  <option value="east">Pier Point</option>
+                </select>
+              </label>
+              <label>
+                Match Pace
+                <select id="difficultySelect">
+                  <option value="normal">Normal</option>
+                  <option value="chill">Chill</option>
+                  <option value="sweaty">Sweaty</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <button class="primary-button" id="startButton">Start Match</button>
+        </div>
+
+        <div class="screen-panel hidden" id="endPanel">
+          <p class="kicker" id="endKicker">Match Over</p>
+          <h2 id="endTitle">Victory Royale</h2>
+          <p id="endStats">You cleared the island.</p>
+          <p class="reward-line" id="rewardLine">+0 coins</p>
+          <button class="primary-button" id="restartButton">Play Again</button>
+        </div>
+      </section>
+    </main>
+
+    <aside class="shop-panel hidden" id="shopPanel" aria-label="Shop">
+      <div class="shop-header">
+        <div>
+          <p class="kicker">Locker Shop</p>
+          <h2>Spend Coins</h2>
+        </div>
+        <button class="icon-button" id="closeShopButton" type="button" aria-label="Close shop">X</button>
+      </div>
+      <div class="shop-meta">
+        <span id="shopCurrency">0 coins</span>
+        <span id="shopEquipped">Equipped: Shadow Ace</span>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+    </aside>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
